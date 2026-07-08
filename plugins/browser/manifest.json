@@ -1,0 +1,17 @@
+{
+  "id": "mist.browser.sqlite",
+  "name": "Browser Artifact Analysis",
+  "category": "browser",
+  "version": "0.1.0",
+  "description": "Extracts browser history, downloads, cookies, cache metadata, and profile information from Chromium, Firefox, Edge, and Brave artifacts.",
+  "inputs": ["History", "places.sqlite", "Cookies", "Web Data", "Downloads"],
+  "outputs": ["history", "downloads", "cookies", "profiles", "browser_timeline"],
+  "tools": ["sqlite3", "browser-history parsers"],
+  "enabled": true,
+  "sandbox": {
+    "mount": "read-only",
+    "network": "disabled",
+    "cpu_limit": "1",
+    "memory_limit": "2g"
+  }
+}

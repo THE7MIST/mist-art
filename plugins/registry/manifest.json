@@ -1,0 +1,17 @@
+{
+  "id": "mist.registry.regripper",
+  "name": "Windows Registry Analysis",
+  "category": "registry",
+  "version": "0.1.0",
+  "description": "Parses Windows registry hives for user activity, USB history, MRU, RecentDocs, Run keys, and system configuration.",
+  "inputs": ["SAM", "SYSTEM", "SOFTWARE", "NTUSER.DAT", "USRCLASS.DAT"],
+  "outputs": ["users", "run_keys", "usb_history", "mru", "recent_docs", "shellbags"],
+  "tools": ["RegRipper", "Registry Explorer"],
+  "enabled": true,
+  "sandbox": {
+    "mount": "read-only",
+    "network": "disabled",
+    "cpu_limit": "1",
+    "memory_limit": "2g"
+  }
+}

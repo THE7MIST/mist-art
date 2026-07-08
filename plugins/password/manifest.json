@@ -1,0 +1,17 @@
+{
+  "id": "mist.password.recovery",
+  "name": "Password Recovery Orchestration",
+  "category": "password",
+  "version": "0.1.0",
+  "description": "Identifies encrypted ZIP, RAR, 7z, Office, and PDF files, extracts hash material, and runs approved recovery workflows with evidence-derived dictionaries.",
+  "inputs": ["zip", "rar", "7z", "office", "pdf", "known_passwords", "metadata_terms"],
+  "outputs": ["encrypted_files", "hash_material", "candidate_dictionary", "recovery_status"],
+  "tools": ["John the Ripper", "Hashcat", "7z2john", "zip2john", "pdf2john"],
+  "enabled": true,
+  "sandbox": {
+    "mount": "read-only",
+    "network": "disabled",
+    "cpu_limit": "4",
+    "memory_limit": "8g"
+  }
+}

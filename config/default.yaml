@@ -1,0 +1,20 @@
+app:
+  name: MIST Artifact
+  environment: development
+
+forensics:
+  enable_external_tools: false
+  evidence_mount: read-only
+  default_timezone: UTC
+
+ai:
+  provider: ollama
+  model: llama3.1
+  use_rag: false
+
+reporting:
+  formats:
+    - markdown
+    - json
+    - pdf
+    - docx

@@ -1,0 +1,21 @@
+## {{ question }}
+
+### Objective
+
+{{ objective }}
+
+### Theory
+
+{{ theory }}
+
+### Investigation Procedure
+
+{% for step in procedure %}
+{{ loop.index }}. {{ step }}
+{% endfor %}
+
+### Answer
+
+{{ answer }}
+
+Confidence: {{ confidence }}%

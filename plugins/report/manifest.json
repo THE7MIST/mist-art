@@ -1,0 +1,17 @@
+{
+  "id": "mist.report.generator",
+  "name": "Forensic Report Generation",
+  "category": "report",
+  "version": "0.1.0",
+  "description": "Generates report-ready Markdown, JSON, PDF, DOCX, HTML, and CSV outputs from structured investigation answers.",
+  "inputs": ["answers", "evidence", "verification", "timeline", "chain_of_custody"],
+  "outputs": ["markdown", "json", "pdf", "docx", "html", "csv"],
+  "tools": ["Jinja2", "ReportLab", "python-docx"],
+  "enabled": true,
+  "sandbox": {
+    "mount": "write-reports-only",
+    "network": "disabled",
+    "cpu_limit": "1",
+    "memory_limit": "2g"
+  }
+}

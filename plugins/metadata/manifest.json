@@ -1,0 +1,17 @@
+{
+  "id": "mist.metadata.extractor",
+  "name": "Metadata Extraction",
+  "category": "metadata",
+  "version": "0.1.0",
+  "description": "Extracts file metadata, MIME hints, timestamps, EXIF, Office metadata, and signature-level classifications.",
+  "inputs": ["files", "documents", "images", "archives", "filesystem_records"],
+  "outputs": ["metadata", "signatures", "timestamps", "document_properties"],
+  "tools": ["file", "exiftool", "oletools"],
+  "enabled": true,
+  "sandbox": {
+    "mount": "read-only",
+    "network": "disabled",
+    "cpu_limit": "1",
+    "memory_limit": "2g"
+  }
+}

@@ -1,0 +1,5 @@
+1. What is the filesystem?
+2. How many ZIP files are present?
+3. What is MAC Time for the suspicious document?
+4. Build a user profile from the evidence.
+5. Find deleted files and explain how to verify them in FTK, Autopsy, and Sleuth Kit.

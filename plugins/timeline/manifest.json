@@ -1,0 +1,17 @@
+{
+  "id": "mist.timeline.plaso",
+  "name": "Timeline Generation",
+  "category": "timeline",
+  "version": "0.1.0",
+  "description": "Builds normalized event timelines from filesystem metadata, registry activity, browser artifacts, event logs, and recovered files.",
+  "inputs": ["filesystem_metadata", "event_logs", "registry_hives", "browser_databases", "prefetch", "srum"],
+  "outputs": ["timeline_events", "mactime", "activity_clusters"],
+  "tools": ["log2timeline", "psort", "mactime"],
+  "enabled": true,
+  "sandbox": {
+    "mount": "read-only",
+    "network": "disabled",
+    "cpu_limit": "2",
+    "memory_limit": "6g"
+  }
+}

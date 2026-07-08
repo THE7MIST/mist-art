@@ -1,0 +1,17 @@
+{
+  "id": "mist.hash.verifier",
+  "name": "Hash and Chain-of-Custody Verification",
+  "category": "hash",
+  "version": "0.1.0",
+  "description": "Calculates and verifies cryptographic hashes for uploaded evidence, exported artifacts, and report attachments.",
+  "inputs": ["any_file", "disk_image", "memory_image", "exported_artifact"],
+  "outputs": ["md5", "sha1", "sha256", "chain_of_custody_event"],
+  "tools": ["hashlib", "sha256sum", "md5sum"],
+  "enabled": true,
+  "sandbox": {
+    "mount": "read-only",
+    "network": "disabled",
+    "cpu_limit": "1",
+    "memory_limit": "1g"
+  }
+}

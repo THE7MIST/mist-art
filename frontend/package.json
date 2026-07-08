@@ -1,0 +1,27 @@
+{
+  "name": "mist-artifact-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "latest",
+    "@tanstack/react-table": "latest",
+    "@tanstack/react-virtual": "latest",
+    "lucide-react": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "typescript": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest"
+  }
+}

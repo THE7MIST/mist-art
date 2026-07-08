@@ -1,0 +1,114 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "${MIST_FRONTEND_PORT:-5173}:5173"
+    environment:
+      VITE_API_BASE_URL: http://localhost:${MIST_API_PORT:-8000}
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "${MIST_API_PORT:-8000}:8000"
+    env_file:
+      - .env
+    environment:
+      UPLOAD_DIR: /app/uploads
+      REPORT_DIR: /app/reports
+      CACHE_DIR: /app/cache
+      PLUGIN_DIR: /app/plugins
+    volumes:
+      - ./backend:/app/backend
+      - ./plugins:/app/plugins:ro
+      - ./uploads:/app/uploads
+      - ./reports:/app/reports
+      - ./cache:/app/cache
+    depends_on:
+      - postgres
+      - redis
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    env_file:
+      - .env
+    environment:
+      UPLOAD_DIR: /app/uploads
+      REPORT_DIR: /app/reports
+      CACHE_DIR: /app/cache
+      PLUGIN_DIR: /app/plugins
+    volumes:
+      - ./backend:/app/backend
+      - ./worker:/app/worker
+      - ./plugins:/app/plugins:ro
+      - ./uploads:/app/uploads:ro
+      - ./reports:/app/reports
+      - ./cache:/app/cache
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-mist}
+      POSTGRES_USER: ${POSTGRES_USER:-mist}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mist_dev_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-mist}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-mist_minio_password}
+    volumes:
+      - minio_data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+  opensearch:
+    image: opensearchproject/opensearch:2.19.1
+    environment:
+      discovery.type: single-node
+      plugins.security.disabled: "true"
+      OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_INITIAL_ADMIN_PASSWORD:-MistArtifactDevPassword123!}
+    ports:
+      - "9200:9200"
+    volumes:
+      - opensearch_data:/usr/share/opensearch/data
+
+  ollama:
+    image: ollama/ollama:0.6.5
+    profiles:
+      - llm
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  postgres_data:
+  minio_data:
+  opensearch_data:
+  ollama_data:
